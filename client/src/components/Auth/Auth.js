@@ -10,10 +10,15 @@ import Icon from './icon'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { signin, signup } from '../../actions/auth'
+
+
+const initialState = {firstName:'', lastName:'', email:'', password:'', comfirmPassword:''}
+
 const Auth = () => {
     const classes = makeStyles();
     const [ isSignup, setIsSignup ] = useState(false)
-
+    const [ formData, setFormData ] = useState(initialState)
     const [ showPassword, setShowPassword ] = useState(false);
     const [ showConfirmPassword, setShowConfirmPassword ] = useState(false);
     const dispatch = useDispatch();
@@ -22,9 +27,18 @@ const Auth = () => {
 
     const handleSumit = (el) =>{
         el.preventDefault();
-    }
-    const handleChange = () =>{
+        
+        if(!isSignup){
+            //check with database
+            dispatch(signin(formData, history))             //include history to navigate user later on
+        }else{
+            //create new user
+            dispatch(signup(formData, history))
+        }
 
+    }
+    const handleChange = (el) =>{
+        setFormData({...formData, [el.target.name] : el.target.value })
     }
     const handleShowPassword = () =>{
         setShowPassword(!showPassword)
@@ -51,7 +65,6 @@ const Auth = () => {
 
 
     const googleFailure =() =>{
-        console.log("error")
     }
 
     return (
@@ -68,8 +81,8 @@ const Auth = () => {
                         {
                         isSignup && (
                             <>
-                            <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half/>
-                            <Input name="firstName" label="Last Name" handleChange={handleChange} half/>
+                            <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
+                            <Input name="lastName" label="Last Name" handleChange={handleChange} half/>
                             </>
                             )
                         }

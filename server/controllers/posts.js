@@ -7,13 +7,11 @@ import PostMessage from '../models/postMessage.js';
 // Key function take away : find(), findById(id), save(), finyByIdAndUpdate()
 // 200 GET successfull, 201 successful CREATE,
 // https://restfulapi.net/http-status-codes/
-
-
 const router = express.Router();
 
 export const getPosts = async (req, res) => { 
     try {
-        const postMessages = await PostMessage.find(); //Find ? in model
+        const postMessages = await PostMessage.find();     //Find ? in model
                 
         res.status(200).json(postMessages);
     } catch (error) {
@@ -35,10 +33,11 @@ export const getPost = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const { title, message, selectedFile, creator, tags } = req.body;
+    // const { title, message, selectedFile, creator, tags } = req.body;
 
-    const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags })
-
+    const post = req.body;
+    const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() }); //set creator for specific post
+                                                                                        //what is toISOString??
     try {
         await newPostMessage.save();
 
@@ -73,12 +72,25 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
     const { id } = req.params;
+    //inherit from auth middleware
+    if(!req.userId) return res.json({ message: "Unauthenticated"})
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
     
     const post = await PostMessage.findById(id);
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+    const index = post.likes.findIndex((id) => id === String(req.userId))
+    
+    if(index === -1) {  //findIndex return -1
+        //update likes list
+        post.likes.push(req.userId)
+    }else{
+        post.likes = post.likes.filter(el => el !== String(req.userId))
+    }
+
+
+    //change PostMessage schema, like have to include list of user
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
     
     res.json(updatedPost);
 }
