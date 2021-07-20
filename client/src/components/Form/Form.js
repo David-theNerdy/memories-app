@@ -15,7 +15,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const currentUSer = JSON.parse(localStorage.getItem('profile'))
 
   useEffect(() => {
-    if (post) setPostData(post);
+    if (post) setPostData(post);    //check if there is any change in post, then execute the code
   }, [post]);
 
   const clear = () => {

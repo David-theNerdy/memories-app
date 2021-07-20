@@ -25,11 +25,12 @@ export default makeStyles((theme) => ({
   },
   profile: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     width: '400px',
   },
   userName: {
     display: 'flex',
+    padding: '0px 20px',
     alignItems: 'center',
   },
   brandContainer: {

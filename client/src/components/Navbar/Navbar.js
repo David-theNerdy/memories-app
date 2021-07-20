@@ -16,7 +16,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
-
+    
     const logout = () =>{
         dispatch({type: 'LOGOUT'});
         history.push("/");
@@ -50,11 +50,11 @@ const Navbar = () => {
                     <Typography className={classes.userName} variant="h6">{user.result.name}</Typography>
                     <Button variant="contained" color="secondary" onClick={logout}>Log Out</Button>
                 </div>
-            ) : (
+            ) : (location.pathname==="/auth") ?  <></> :(
                 <div className={classes.profile}>
                     <Button component={Link} to="/auth"variant="contained" color="primary">Sign In</Button>
                 </div>
-            )}
+            ) }
         </Toolbar>
 
     </AppBar>
