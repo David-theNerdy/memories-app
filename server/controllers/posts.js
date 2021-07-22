@@ -19,6 +19,24 @@ export const getPosts = async (req, res) => {
     }
 }
 
+// QUERY -> /posts?page=1 -> page=1
+// PARAMS -> /posts/:id -> /posts/123 -> id = 123
+export const getPostsBySearch = async (req, res) => {
+    const { searchQuery, tags } = req.query;
+
+    try {
+        const title = new RegExp(searchQuery, "i");
+
+        const posts = await PostMessage.find({ $or: [ { title : title}, { tags: { $in: tags.split(',') } } ]});
+        //find is a method by mongoose that find all the posts that match: $or(as the name). $in spead tags
+
+        res.json({data: posts }) //10
+        //send the queried data to frontend
+    } catch (error) {    
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export const getPost = async (req, res) => {  
     const { id } = req.params;
 
@@ -48,7 +66,7 @@ export const createPost = async (req, res) => {
 }
 
 export const updatePost = async (req, res) => {
-    const { id } = req.params;
+     
     const { title, message, creator, selectedFile, tags } = req.body;
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);

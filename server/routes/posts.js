@@ -1,15 +1,19 @@
 import express from 'express';
-import { getPosts, createPost, updatePost, likePost, deletePost } from '../controllers/posts.js';
+import { getPostsBySearch, getPosts, createPost, updatePost, likePost, deletePost } from '../controllers/posts.js';
 //notice that in the backend we have to add .js to call them
 import auth from '../middleware/auth.js'
 
 const router = express.Router();
 
+//index.js has /posts already so instead of /posts/search we only use /search
+// router.getPostsBySearch('/search/') this is a wrong syntax, because router.get, post, delete is defiend in router
+router.get('/search', getPostsBySearch)
 router.get('/', getPosts);  //getPosts will be executed when user visit this route (callback function)
 router.post('/', auth, createPost);
 router.patch('/:id', auth, updatePost); 
 router.delete('/:id', auth, deletePost);
 router.patch('/:id/likePost', auth, likePost); //this is to prevent user from liking post more than 1
+
 
 //it is important to mention that the next() in the middleware 'auth' allow then next module to use what is in the middleware
 // in this case, getPost, createPost, updatePost,.. will have access to variables had been declared in auth

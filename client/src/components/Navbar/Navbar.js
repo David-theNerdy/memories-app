@@ -1,5 +1,6 @@
 import React from 'react'
-import memories from '../../images/memories.png';
+import memories from '../../images/memoriesLogo.png';
+import memoriesText from '../../images/memoriesText.png';
 import makeStyles from './styles';
 import { AppBar, Toolbar, Typography, Avatar, Button } from '@material-ui/core';
 import { Link } from "react-router-dom"
@@ -38,10 +39,10 @@ const Navbar = () => {
 
     return (
     <AppBar className={classes.appBar} position="static" color="inherit">
-        <div className={classes.brandContainer}>
-        <Typography component={Link} to="/"  className={classes.heading} variant="h2" align="center">Memories</Typography>
-        <img className={classes.image} src={memories} alt="icon" height="60" />
-        </div>
+        <Link to="/" className={classes.brandContainer}>
+        <img src={memoriesText} className={classes.image} alt="AppName" height="40"/>
+        <img className={classes.image} src={memories} alt="icon" height="45" />
+        </Link>
 
         <Toolbar className={classes.toolbar}>
             {user ? (
