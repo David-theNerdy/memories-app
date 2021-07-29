@@ -16,6 +16,10 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use("/user", userRouter);
 
+app.get('/', (req, res) => {
+  res.send('APP IS RUNNING')
+})
+
 //mongoDB implement 
 
 const CONNECTION_URL = 'mongodb+srv://david:h71211176@cluster0.mndzw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';

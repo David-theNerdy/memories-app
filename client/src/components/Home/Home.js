@@ -46,7 +46,6 @@ const Home = () => {
 
     const handleKeyPress =(e) =>{       //take in an event 
       if(e.key === "Enter"){
-        //search for the post: 13 is Enter
         searchPost();
       }
     }
@@ -65,6 +64,10 @@ const Home = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={3}>
+
+            {(!searchQuery && !tags.length) &&
+              <Paper elevation={4} className={classes.pagination}><Paginate className={classes.pagination} page={page}/> </Paper>}
+
               <AppBar className={classes.appBarSearch} position="static" color="inherit" >
                 <TextField 
                   name="search"
@@ -86,8 +89,10 @@ const Home = () => {
                 <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary">Search</Button>
               </AppBar>
 
-              <Form currentId={currentId} setCurrentId={setCurrentId} />
-              <Paper elevation={6} ><Paginate className={classes.pagination} /></Paper>
+              <Form currentId={currentId} setCurrentId={setCurrentId}/>
+
+
+              
             </Grid>
 
           </Grid>

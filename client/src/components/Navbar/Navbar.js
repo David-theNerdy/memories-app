@@ -5,24 +5,24 @@ import makeStyles from './styles';
 import { AppBar, Toolbar, Typography, Avatar, Button } from '@material-ui/core';
 import { Link } from "react-router-dom"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import decode from 'jwt-decode'
 
-const Navbar = () => {
+const Navbar = () => {   
     const classes = makeStyles();  //Why useStyles works??
 
     const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile'))); //convert to object
     const dispatch = useDispatch();
-    const history = useHistory();
     const location = useLocation();
     
-    const logout = () =>{
+    const logout = useCallback(() =>{
         dispatch({type: 'LOGOUT'});
-        history.push("/");
         setUser(null);
-    }
+        window.location.reload();               //the old version is history.push('/'), this cause a error when user log in, refresh the page, log out, then SIGN IN button doesn't work, I have no idea why it happens 
+    },[dispatch]) 
+    
 
     useEffect(()=>{
         const token = user?.token;
@@ -33,6 +33,7 @@ const Navbar = () => {
             if(decodedToken.exp*1000 < new Date().getTime()) logout();
         }
         setUser(JSON.parse(localStorage.getItem('profile')))
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     },[location])
     //Check the token expire: why is it related to location?
     //Maybe because every action user took, we change path to make request
@@ -53,7 +54,7 @@ const Navbar = () => {
                 </div>
             ) : (location.pathname==="/auth") ?  <></> :(
                 <div className={classes.profile}>
-                    <Button component={Link} to="/auth"variant="contained" color="primary">Sign In</Button>
+                    <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
                 </div>
             ) }
         </Toolbar>

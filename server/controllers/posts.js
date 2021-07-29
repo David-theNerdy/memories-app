@@ -10,10 +10,15 @@ import PostMessage from '../models/postMessage.js';
 const router = express.Router();
 
 export const getPosts = async (req, res) => { 
+    const {page} =req.query;
+    const LIMIT = 8;
+    const startIndex = (Number(page)-1)*LIMIT
+    const totalPosts = await PostMessage.countDocuments({})
+
     try {
-        const postMessages = await PostMessage.find();     //Find ? in model
-                
-        res.status(200).json(postMessages);
+        const postMessages = await PostMessage.find().sort({_id:-1}).limit(LIMIT).skip(startIndex);     //Find ? in model
+                                                    //sort(-1) : find the latest post, given that the id is ordered?
+        res.status(200).json({data: postMessages, currentPage: Number(page), numberOfPages: Math.ceil(totalPosts/LIMIT)});
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -58,7 +63,6 @@ export const createPost = async (req, res) => {
                                                                                         //what is toISOString??
     try {
         await newPostMessage.save();
-
         res.status(201).json(newPostMessage );
     } catch (error) {
         res.status(409).json({ message: error.message });

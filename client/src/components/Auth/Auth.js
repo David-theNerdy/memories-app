@@ -113,7 +113,7 @@ const Auth = () => {
                     />
                     <Button type="summit" fullWidth variant="contained" color="primary" className={classes.button}> {isSignup ? "Sign UP" : "Sign In"}</Button>
 
-                    <Grid container justify="flex-end">
+                    <Grid container justifyContent="flex-end">
                         <Grid item >
                         <Button onClick={switchMode}>{isSignup ? "Forgot your password?" : "Don't have an account? Sign up"}</Button>
                         </Grid>

@@ -9,12 +9,14 @@ export default makeStyles((theme) => ({
     },
     pagination:{
         borderRadius: 4,
-        marignTop: '1rem',
         padding: '16px',
+        marginBottom: '1rem',
     },
     gridContainer:{
         [theme.breakpoints.down('xs')] :{
             flexDirection: 'column-reverse',
-        }
+        },
+
     },
+
 }))

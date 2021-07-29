@@ -11,4 +11,12 @@ export default makeStyles((theme) => ({
   actionDiv: {
     textAlign: 'center',
   },
+  loading:{
+    position: 'relative',
+    left: '45%',
+    width: '100%',
+    top: '35%',
+    zIndex: '1000',
+    height: '100%',
+  }
 }));
