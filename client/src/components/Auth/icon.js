@@ -9,4 +9,8 @@ const icon = () => (
   </svg>
 );
 
+<<<<<<< HEAD
 export default icon;
+=======
+export default icon;
+>>>>>>> 429ba36 (fix bugs, make fully responsive, add new features)

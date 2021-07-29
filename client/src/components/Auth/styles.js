@@ -25,9 +25,15 @@ export default makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   googleButton: {
+<<<<<<< HEAD
     marginTop: theme.spacing(3)
   },
   button:{
     marginTop: theme.spacing(2)
   },
 }));
+=======
+    marginBottom: theme.spacing(2),
+  },
+}));
+>>>>>>> 429ba36 (fix bugs, make fully responsive, add new features)

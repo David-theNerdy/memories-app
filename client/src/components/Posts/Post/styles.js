@@ -49,4 +49,11 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+<<<<<<< HEAD
+=======
+  cardAction: {
+    display: 'block',
+    textAlign: 'initial',
+  },
+>>>>>>> 429ba36 (fix bugs, make fully responsive, add new features)
 });
