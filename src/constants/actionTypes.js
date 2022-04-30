@@ -4,7 +4,9 @@ export const DELETE = 'DELETE';
 export const FETCH_ALL = 'FETCH_ALL';
 export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH';
 export const LIKE = 'LIKE';
-export const FETCH_POST = 'FETCH_POST';
+export const FETCH_PRODUCT = 'FETCH_PRODUCT';
+
+export const FETCH_ORDERS = 'FETCH_ORDERS';
 
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';

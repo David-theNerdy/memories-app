@@ -26,8 +26,8 @@ export default makeStyles((theme) => ({
   },
   toolbar: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    width: '400px',
+    justifyContent: 'space-between',
+    width: '600px',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
     },
@@ -55,6 +55,7 @@ export default makeStyles((theme) => ({
   brandContainer: {
     display: 'flex',
     alignItems: 'center',
+    textDecoration: 'none'
   },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),

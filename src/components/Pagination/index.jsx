@@ -4,16 +4,16 @@ import  makeStyles  from './styles'
 import {Link} from 'react-router-dom'
 import { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux';
-import {getPosts} from '../../actions/posts'
+import {getProducts} from '../../actions/products'
 
 const Paginate = ({page}) => {
     const classes = makeStyles();
     const dispatch = useDispatch();
-    const { numberOfPages } = useSelector((state) => state.posts)
+    const { numberOfPages } = useSelector((state) => state.products)
 
 
     useEffect(() => {
-        if(page) dispatch(getPosts(page))
+        if(page) dispatch(getProducts(page))
 
     },[page])
 
@@ -25,7 +25,7 @@ const Paginate = ({page}) => {
             variant='outlined'
             color='primary'
             renderItem={(item) => (
-                <PaginationItem {...item} component={Link}  to={`/posts?page=${item.page}`} />
+                <PaginationItem {...item} component={Link}  to={`/products?page=${item.page}`} />
             )}
         />  
             

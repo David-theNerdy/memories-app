@@ -1,6 +1,5 @@
 import React from 'react'
-import memories from '../../images/memoriesLogo.png';
-import memoriesText from '../../images/memoriesText.png';
+
 import makeStyles from './styles';
 import { AppBar, Toolbar, Typography, Avatar, Button } from '@material-ui/core';
 import { Link } from "react-router-dom"
@@ -35,12 +34,15 @@ const Navbar = () => {
     return (
     <AppBar className={classes.appBar} position="static" color="inherit">
         <Link to="/" className={classes.brandContainer}>
-        <img src={memoriesText} className={classes.image} alt="AppName" height="40"/>
-        <img className={classes.image} src={memories} alt="icon" height="45" />
+            TROPICAL of C
         </Link>
 
 
         <Toolbar className={classes.toolbar}>
+            <div className={classes.profile}>
+                <Button component={Link} to="/orders" variant="contained" color="primary">Orders</Button>
+            </div>
+            
             {user ? (
                 <div className={classes.profile}>
                     <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0) + user.result.name.charAt(1)}</Avatar>
